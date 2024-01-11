@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="picture/favicon.png" type="image/x-icon">
+  <title>時間換算システム・Flegertec</title>
+  <style>
+    @font-face {
+      font-family: "03SmartFontUI";
+      src: url("font/03SmartFontUI.ttf");
+    }
+    body {
+      font-family: '03SmartFontUI', sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #converter {
+      width: 350px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+<div id="converter">
+  <h2>時間換算システム</h2>
+  <label for="seconds">秒</label>
+  <input type="number" id="seconds" placeholder="秒数を入力してください" oninput="convert('seconds')">
+  <br>
+  <label for="minutes">分</label>
+  <input type="number" id="minutes" placeholder="分数を入力してください" oninput="convert('minutes')">
+  <br>
+  <label for="hours">時</label>
+  <input type="number" id="hours" placeholder="時数を入力してください" oninput="convert('hours')">
+  <br>
+  <label for="days">日</label>
+  <input type="number" id="days" placeholder="日数を入力してください" oninput="convert('days')">
+  <br>
+  <label for="weeks">週</label>
+  <input type="number" id="weeks" placeholder="週数を入力してください" oninput="convert('weeks')">
+  <br>
+  <label for="months">月</label>
+  <input type="number" id="months" placeholder="月数を入力してください" oninput="convert('months')">
+  <br>
+  <label for="years">年</label>
+  <input type="number" id="years" placeholder="年数を入力してください" oninput="convert('years')">
+  <br>
+  <button onclick="clearInputs()">クリア</button>
+</div>
+
+<script>
+  function convert(unit) {
+    const secondsInput = document.getElementById('seconds');
+    const minutesInput = document.getElementById('minutes');
+    const hoursInput = document.getElementById('hours');
+    const daysInput = document.getElementById('days');
+    const weeksInput = document.getElementById('weeks');
+    const monthsInput = document.getElementById('months');
+    const yearsInput = document.getElementById('years');
+
+    const seconds = parseFloat(secondsInput.value) || 0;
+
+    switch (unit) {
+      case 'seconds':
+        minutesInput.value = (seconds / 60).toFixed(2);
+        hoursInput.value = (seconds / 3600).toFixed(2);
+        daysInput.value = (seconds / 86400).toFixed(2);
+        weeksInput.value = (seconds / 604800).toFixed(2);
+        monthsInput.value = (seconds / 2628000).toFixed(2);
+        yearsInput.value = (seconds / 31536000).toFixed(2);
+        break;
+      case 'minutes':
+        secondsInput.value = (parseFloat(minutesInput.value) || 0) * 60;
+        hoursInput.value = (parseFloat(minutesInput.value) || 0) / 60;
+        daysInput.value = (parseFloat(minutesInput.value) || 0) / 1440;
+        weeksInput.value = (parseFloat(minutesInput.value) || 0) / 10080;
+        monthsInput.value = (parseFloat(minutesInput.value) || 0) / 43800;
+        yearsInput.value = (parseFloat(minutesInput.value) || 0) / 525600;
+        break;
+      case 'hours':
+        secondsInput.value = (parseFloat(hoursInput.value) || 0) * 3600;
+        minutesInput.value = (parseFloat(hoursInput.value) || 0) * 60;
+        daysInput.value = (parseFloat(hoursInput.value) || 0) / 24;
+        weeksInput.value = (parseFloat(hoursInput.value) || 0) / 168;
+        monthsInput.value = (parseFloat(hoursInput.value) || 0) / 730;
+        yearsInput.value = (parseFloat(hoursInput.value) || 0) / 8760;
+        break;
+      case 'days':
+        secondsInput.value = (parseFloat(daysInput.value) || 0) * 86400;
+        minutesInput.value = (parseFloat(daysInput.value) || 0) * 1440;
+        hoursInput.value = (parseFloat(daysInput.value) || 0) * 24;
+        weeksInput.value = (parseFloat(daysInput.value) || 0) / 7;
+        monthsInput.value = (parseFloat(daysInput.value) || 0) / 30.44;
+        yearsInput.value = (parseFloat(daysInput.value) || 0) / 365.25;
+        break;
+      case 'weeks':
+        secondsInput.value = (parseFloat(weeksInput.value) || 0) * 604800;
+        minutesInput.value = (parseFloat(weeksInput.value) || 0) * 10080;
+        hoursInput.value = (parseFloat(weeksInput.value) || 0) * 168;
+        daysInput.value = (parseFloat(weeksInput.value) || 0) * 7;
+        monthsInput.value = (parseFloat(weeksInput.value) || 0) / 4.345;
+        yearsInput.value = (parseFloat(weeksInput.value) || 0) / 52.18;
+        break;
+      case 'months':
+        secondsInput.value = (parseFloat(monthsInput.value) || 0) * 2628000;
+        minutesInput.value = (parseFloat(monthsInput.value) || 0) * 43800;
+        hoursInput.value = (parseFloat(monthsInput.value) || 0) * 730;
+        daysInput.value = (parseFloat(monthsInput.value) || 0) * 30.44;
+        weeksInput.value = (parseFloat(monthsInput.value) || 0) * 4.345;
+        yearsInput.value = (parseFloat(monthsInput.value) || 0) / 12;
+        break;
+      case 'years':
+        secondsInput.value = (parseFloat(yearsInput.value) || 0) * 31536000;
+        minutesInput.value = (parseFloat(yearsInput.value) || 0) * 525600;
+        hoursInput.value = (parseFloat(yearsInput.value) || 0) * 8760;
+        daysInput.value = (parseFloat(yearsInput.value) || 0) * 365.25;
+        weeksInput.value = (parseFloat(yearsInput.value) || 0) * 52.18;
+        monthsInput.value = (parseFloat(yearsInput.value) || 0) * 12;
+        break;
+    }
+  }
+
+  function clearInputs() {
+    document.getElementById('seconds').value = '';
+    document.getElementById('minutes').value = '';
+    document.getElementById('hours').value = '';
+    document.getElementById('days').value = '';
+    document.getElementById('weeks').value = '';
+    document.getElementById('months').value = '';
+    document.getElementById('years').value = '';
+  }
+</script>
+
+</body>
+</html>
